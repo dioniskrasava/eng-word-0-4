@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
+	"strings"
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
@@ -131,8 +132,8 @@ func initDB() *sql.DB {
 
 // addDB добавляет слово и перевод в базу данных
 func addDB(db *sql.DB, wordEntry *widget.Entry, translationEntry *widget.Entry) {
-	word := wordEntry.Text
-	translation := translationEntry.Text
+	word := strings.ToLower(wordEntry.Text)
+	translation := strings.ToLower(translationEntry.Text)
 
 	// Вставка данных в базу данных
 	stmt, err := db.Prepare("INSERT INTO words(word, translation) values(?, ?)")
